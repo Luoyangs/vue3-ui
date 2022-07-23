@@ -1,0 +1,115 @@
+$form-item-label-line-height: 16px;
+$form-item-margin-bottom: 24px;
+$small-form-item-height: 24px;
+$normal-form-item-height: 32px;
+$large-form-item-height: 40px;
+
+.yoga-form-item {
+  display: flex;
+  margin-bottom: $form-item-margin-bottom;
+  font-size: 14px;
+  transition: margin-bottom 0s 0.2s;
+
+  &__label {
+    flex-shrink: 0;
+    padding: math.div($normal-form-item-height - $form-item-label-line-height, 2) 0;
+    margin-right: 16px;
+    line-height: $form-item-label-line-height;
+    box-sizing: border-box;
+  }
+
+  &__control {
+    position: relative;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    flex: 1;
+    line-height: $normal-form-item-height;
+
+    &::before {
+      display: table;
+      height: $normal-form-item-height;
+      content: "";
+    }
+  }
+
+  &__required {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 0;
+    color: $error;
+  }
+
+  &__extra {
+    padding-top: 4px;
+    font-size: 12px;
+    line-height: 16px;
+    color: $black-66;
+  }
+
+  &__error {
+    padding-top: 4px;
+    font-size: 12px;
+    line-height: 1;
+    color: $error;
+    transform-origin: center top;
+  }
+
+  &--error {
+    margin-bottom: $form-item-margin-bottom - 16;
+    transition-delay: 0s;
+
+    .yoga-input {
+      &__inner {
+        border-color: $error;
+      }
+    }
+
+    .yoga-selector {
+      border-color: $error;
+    }
+  }
+
+  &--small {
+    margin-bottom: $form-item-margin-bottom;
+
+    .yoga-form-item {
+      &__label {
+        padding: math.div($small-form-item-height - $form-item-label-line-height, 2) 0;
+      }
+
+      &__content {
+        line-height: $small-form-item-height;
+
+        &::before {
+          height: $small-form-item-height;
+        }
+      }
+
+      &__error {
+        padding-top: 3px;
+      }
+    }
+  }
+
+  &--large {
+    margin-bottom: $form-item-margin-bottom;
+
+    .yoga-form-item {
+      &__label {
+        padding: math.div($large-form-item-height - $form-item-label-line-height, 2) 0;
+      }
+
+      &__content {
+        line-height: $large-form-item-height;
+
+        &::before {
+          height: $large-form-item-height;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,243 @@
+$small-padding: 5px;
+$small-height: 24px;
+$small-icon-size: 12px;
+$small-font-size: 12px;
+$small-min-with: 64px;
+$default-padding: 7px;
+$default-height: 32px;
+$default-icon-size: 16px;
+$default-font-size: 14px;
+$default-min-with: 72px;
+$large-padding: 10px;
+$large-height: 40px;
+$large-icon-size: 16px;
+$large-font-size: 14px;
+$large-min-with: 80px;
+// maps
+$height-maps: ("large": $large-height, "normal": $default-height, "small": $small-height);
+$padding-maps: ("large": 0 $large-padding, "normal": 0 $default-padding, "small": 0 $small-padding);
+$font-size-maps: ("large": $large-font-size, "normal": $default-font-size, "small": $small-font-size);
+$icon-size-maps: ("large": $large-icon-size, "normal": $default-icon-size, "small": $small-icon-size);
+$min-width-maps: ("large": $large-min-with, "normal": $default-min-with, "small": $small-min-with);
+
+@mixin useSize {
+  @each $size, $value in $padding-maps {
+    &.yoga-button--#{$size} {
+      padding: $value;
+      height: map.get($height-maps, $size);
+      font-size: map.get($font-size-maps, $size);
+      min-width: map.get($min-width-maps, $size);
+
+      svg {
+        width: map.get($icon-size-maps, $size);
+        height: map.get($icon-size-maps, $size);
+      }
+
+      &.yoga-button--circle,
+      &.yoga-button--link {
+        min-width: unset;
+      }
+
+      &.yoga-button--pure {
+        min-width: unset;
+      }
+    }
+  }
+}
+
+@mixin button-style($color, $background-color, $border-color) {
+  @include button-before-style;
+  color: $color;
+  fill: $color;
+  background-color: $background-color;
+  border-color: $border-color;
+
+  &.yoga-button--outline {
+    @include button-before-style($background-color);
+    color: $background-color;
+    fill: $background-color;
+    background-color: transparent;
+    border-color: $border-color;
+  }
+}
+
+@mixin button-before-style($cover-color: $black) {
+  $hover-cover-color: rgba(transparent, 0);
+  $active-cover-color: rgba(transparent, 0);
+  $loading-cover-color: rgba($white, 0.4);
+
+  @if $cover-color {
+    $hover-cover-color: rgba($cover-color, 0.04);
+    $active-cover-color: rgba($cover-color, 0.08);
+  }
+
+  &:hover::before {
+    background-color: $hover-cover-color;
+  }
+
+  &:active::before {
+    background-color: $active-cover-color;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(72deg);
+  }
+  40% {
+    transform: rotate(144deg);
+  }
+  60% {
+    transform: rotate(216deg);
+  }
+  80% {
+    transform: rotate(288deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.yoga-button {
+  @include button-style($text-color-primary, $white, $border-color);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: $default-height;
+  padding: 0 $default-padding;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  transition: $default-all-fast-transition;
+  appearance: none;
+  user-select: none;
+
+  &::before {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    border-radius: inherit;
+    content: "";
+  }
+
+  &--disabled,
+  &--disabled:hover {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  span {
+    line-height: 1;
+    vertical-align: middle;
+
+    svg {
+      vertical-align: text-bottom;
+    }
+  }
+
+  // icon button
+  svg {
+    vertical-align: middle;
+    &.loading {
+      animation: loading 1.05s linear infinite;
+    }
+  }
+
+  svg + span,
+  span + svg {
+    margin-left: 8px;
+  }
+
+  // button size
+  @include useSize;
+
+  // button type
+  &--primary {
+    @include button-style($white, $primary-color, $primary-color);
+  }
+
+  &--secondary {
+    @include button-style($white, $secondary-color, $secondary-color);
+  }
+
+  &--link {
+    @include button-style($blue-light, transparent, transparent);
+    @include button-before-style(false);
+    height: unset;
+    min-width: unset;
+    padding: 0;
+    font-weight: normal;
+
+    &.yoga-button {
+      &:hover::before {
+        background-color: transparent;
+      }
+
+      &:not(.yoga-button--disabled):hover {
+        color: $blue;
+      }
+    }
+
+    & svg + span {
+      margin-left: 4px;
+    }
+
+    & span + svg {
+      margin-left: 2px;
+    }
+
+    &.underline {
+      text-decoration: underline;
+    }
+  }
+
+  &--underline {
+    text-decoration: underline;
+  }
+
+  &--dashed {
+    border-color: $black-d8;
+    border-style: dashed;
+
+    &.yoga-button--primary {
+      @include button-style($blue-light, $white, $blue-light);
+      @include button-before-style($blue-light);
+      border-style: dashed;
+    }
+  }
+
+  &--round {
+    border-radius: 100px;
+  }
+
+  &--circle {
+    min-width: unset;
+    padding: 8px;
+    line-height: 0;
+    border-radius: 100%;
+  }
+
+  &--block {
+    width: 100%;
+  }
+}

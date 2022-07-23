@@ -1,0 +1,60 @@
+$year-col-width: 72px;
+$year-col-height: 24px;
+$year-row-space: 16px;
+
+.yoga-year-table {
+  padding: 16px;
+  font-size: 14px;
+  color: $text-color-primary;
+  background-color: $white;
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    margin: $year-row-space 0;
+    white-space: nowrap;
+
+    &:nth-child(2) {
+      margin-top: $year-row-space * 2 + 7;
+      margin-bottom: $year-row-space * 2 + 6;
+    }
+
+    &:nth-child(3) {
+      margin-top: $year-row-space * 2 + 6;
+      margin-bottom: $year-row-space * 2 + 7;
+    }
+  }
+
+  &__col {
+    position: relative;
+    display: inline-block;
+    width: $year-col-width;
+    height: $year-col-height;
+    line-height: $year-col-height;
+    text-align: center;
+    word-break: keep-all;
+    vertical-align: middle;
+    border-radius: 4px;
+
+    &.disabled {
+      opacity: .5;
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &:not(.disabled):hover {
+      cursor: pointer;
+      background-color: $black-f6;
+    }
+
+    &.selected:not(.disabled) {
+      color: $white;
+      background-color: $primary-color;
+    }
+
+    &.current:not(.disabled):not(.selected) {
+      color: $primary-color;
+    }
+  }
+}

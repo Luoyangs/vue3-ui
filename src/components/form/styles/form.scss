@@ -1,0 +1,46 @@
+.yoga-form {
+  &--inline {
+    display: flex;
+    flex-wrap: wrap;
+
+    .yoga-form-item {
+      display: inline-flex;
+      margin-right: 24px;
+      margin-bottom: 16px;
+      vertical-align: top;
+    }
+  }
+
+  &--label-top {
+    .yoga-form-item {
+      flex-direction: column;
+
+      &__label {
+        padding-top: 0;
+      }
+    }
+  }
+
+  &--label-right {
+    .yoga-form-item__label {
+      text-align: right;
+    }
+  }
+
+  &-item__label {
+    width: 200px;
+  }
+
+  &--label-top,
+  &--inline {
+    .yoga-form-item {
+      &__label {
+        width: auto;
+
+        &.empty {
+          display: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+$placements: (
+  'top': 'bottom',
+  'bottom': 'top',
+  'left': 'right',
+  'right': 'left',
+);
+
+.yoga-popper {
+  position: absolute;
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 200;
+  font-size: 12px;
+  line-height: 1.25;
+  min-width: 10px;
+  word-wrap: break-word;
+  visibility: visible;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+
+  &__arrow {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    z-index: -1;
+
+    &::before {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      z-index: -1;
+      content: ' ';
+      transform: rotate(45deg);
+      background: $white;
+      box-sizing: border-box;
+    }
+  }
+
+  &.is-pure {
+    padding: 0;
+  }
+
+  $arrow-selector: #{& + '__arrow'};
+
+  &.is-light {
+    background: $white;
+
+    #{$arrow-selector}::before {
+      border: 1px solid $black-d8;
+      background: $white;
+      right: 0;
+    }
+  }
+
+  &.is-dark {
+    color: $white;
+    background: $black-33;
+    #{$arrow-selector}::before {
+      background: $black-33;
+      right: 0;
+    }
+  }
+
+
+
+  @each $placement, $opposite in $placements {
+    &[data-popper-placement^='#{$placement}'] > #{$arrow-selector} {
+      #{$opposite}: -5px;
+    }
+  }
+
+  @each $placement, $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top') {
+    &.is-light[data-popper-placement^='#{$placement}'] {
+      #{$arrow-selector}::before {
+        border-#{$placement}-color: transparent;
+        border-#{$adjacency}-color: transparent;
+      }
+    }
+  }
+}

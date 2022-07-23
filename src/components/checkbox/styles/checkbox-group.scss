@@ -1,0 +1,121 @@
+$padding-maps: ("large": 12px 20px, "normal": 10px 18px, "small": 8px 16px);
+$font-size-maps: ("large": 14px, "normal": 14px, "small": 12px);
+$border-radius-maps: ("large": 4px, "normal": 3px, "small": 2px);
+
+@mixin useSize {
+  @each $size, $value in $padding-maps {
+    &.yoga-checkbox-group--#{$size} {
+      .yoga-checkbox {
+        padding: $value;
+
+        &__label {
+          font-size: map.get($font-size-maps, $size);
+        }
+
+        &:first-child {
+          border-top-left-radius: map.get($border-radius-maps, $size);
+          border-bottom-left-radius: map.get($border-radius-maps, $size);
+        }
+
+        &:last-child {
+          border-top-right-radius: map.get($border-radius-maps, $size);
+          border-bottom-right-radius: map.get($border-radius-maps, $size);
+        }
+      }
+    }
+  }
+}
+
+@mixin useGroup($type) {
+  &.yoga-checkbox-group--#{$type} {
+    .yoga-checkbox {
+      line-height: 1;
+      vertical-align: middle;
+      border: 1px solid $border-color;
+      border-left: 0;
+      text-align: center;
+      box-sizing: border-box;
+      outline: none;
+      margin: 0;
+      position: relative;
+
+      &__indicator {
+        display: none;
+      }
+
+      &:first-child {
+        border-left: 1px solid $border-color;
+      }
+
+      &--disabled {
+        @if $type == "solid" {
+          background-color: $black-ee;
+          border-color: $border-color;
+
+          .yoga-checkbox__label {
+            color: $black-66;
+          }
+        } @else if $type == "outline" {
+          .yoga-checkbox__label {
+            color: $black-99;
+          }
+        }
+      }
+
+      &--checked {
+        border-color: $primary-color;
+        @if $type == "solid" {
+          background-color: $primary-color;
+          &::before {
+            background-color: $white !important;
+          }
+          .yoga-checkbox__label {
+            color: $white;
+          }
+        } @else if $type == "outline" {
+          .yoga-checkbox__label {
+            color: $primary-color;
+          }
+        }
+
+        &--disabled {
+          opacity: .5;
+        }
+
+        &:not(:first-child) {
+          &::before {
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            bottom: -1px;
+            content: " ";
+            width: 1px;
+            background-color: $primary-color;
+          }
+        }
+      }
+    }
+
+    @include useSize;
+  }
+}
+
+.yoga-checkbox-group {
+  font-size: 0;
+
+  .yoga-checkbox:not(:last-child) {
+    margin-right: 16px;
+  }
+
+  &--vertical {
+    display: flex;
+    flex-direction: column;
+
+    .yoga-checkbox {
+      margin: 5px 0;
+    }
+  }
+
+  @include useGroup("solid");
+  @include useGroup("outline");
+}

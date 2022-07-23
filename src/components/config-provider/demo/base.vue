@@ -1,0 +1,75 @@
+<docs>
+---
+title: 基础方法
+---
+
+可以通过 `config-provider` 配置国际化
+</docs>
+
+<template>
+  <y-config-provider :locale="locale">
+    <y-date-picker-panel />
+  </y-config-provider>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  name: 'Base',
+
+  setup() {
+    const value = ref(null);
+    const locale = ref({
+      name: 'zh-cn',
+      ele: {
+        datepicker: {
+          year: '年',
+          weeks: {
+            0: '日',
+            1: '一',
+            2: '二',
+            3: '三',
+            4: '四',
+            5: '五',
+            6: '六',
+          },
+          months: {
+            0: '一月',
+            1: '二月',
+            2: '三月',
+            3: '四月',
+            4: '五月',
+            5: '六月',
+            6: '七月',
+            7: '八月',
+            8: '九月',
+            9: '十月',
+            10: '十一月',
+            11: '十二月',
+          },
+          fullmonths: {
+            0: '1 月',
+            1: '2 月',
+            2: '3 月',
+            3: '4 月',
+            4: '5 月',
+            5: '6 月',
+            6: '7 月',
+            7: '8 月',
+            8: '9 月',
+            9: '10 月',
+            10: '11 月',
+            11: '12 月',
+          },
+        },
+      },
+    });
+
+    return {
+      value,
+      locale,
+    };
+  },
+});
+</script>

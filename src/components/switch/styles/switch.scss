@@ -1,0 +1,88 @@
+$switch-on-bg-color: $success;
+$switch-off-bg-color: $black-d8;
+
+$dot-size-map: ("large": 28px, "normal": 20px, "small": 12px);
+$height-map: ("large": 32px, "normal": 24px, "small": 16px);
+$min-with-map: ("large": 64px, "normal": 48px, "small": 32px);
+$label-font-map: ("large": 16px, "normal": 14px, "small": 12px);
+
+@mixin useSize {
+  @each $size, $value in $dot-size-map {
+    &.yoga-switch--#{$size} {
+      min-width: map.get($min-with-map, $size);
+      height: map.get($height-map, $size);
+      line-height: map.get($height-map, $size);
+      border-radius: $value;
+
+      &::before {
+        width: $value;
+        height: $value;
+      }
+
+      &.yoga-switch--on{
+        &::before {
+          left: calc(100% - $value - 1px);
+          right: 1px;
+        }
+
+        .yoga-switch__label {
+          margin-left: 7px;
+          margin-right: calc($value + 7px);
+        }
+      }
+
+      &.yoga-switch--off {
+        .yoga-switch__label {
+          margin-left: calc($value + 7px);
+          margin-right: 7px;
+        }
+      }
+
+      .yoga-switch__label {
+        font-size: map.get($label-font-map, $size);
+      }
+    }
+  }
+}
+
+.yoga-switch {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+
+  &::before {
+    position: absolute;
+    right: 100%;
+    left: 1px;
+    display: inline-block;
+    margin-top: 2px;
+    background-color: $white;
+    border-radius: 50%;
+    content: '';
+    transition: $default-all-slow-transition;
+  }
+
+  &--on {
+    background-color: $switch-on-bg-color;
+  }
+
+  &--off {
+    background-color: $switch-off-bg-color;
+  }
+
+  &--disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  &__label {
+    font-size: 12px;
+    color: $white;
+    white-space: nowrap;
+    user-select: none;
+    transition: margin $duration-time-slow ease-in-out;
+  }
+
+  @include useSize;
+}

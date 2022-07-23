@@ -1,0 +1,84 @@
+$scrollbar-thumb-size: 6px;
+
+.yoga-scrollbar {
+  position: relative;
+  height: 100%;
+  max-width: inherit;
+  max-height: inherit;
+  overflow: hidden;
+
+  &__wrapper {
+    height: 100%;
+    max-width: inherit;
+    max-height: inherit;
+    overflow: auto;
+    line-height: 0;
+    box-sizing: content-box;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+
+  &__content {
+    display: inline-table;
+    width: 100%;
+    line-height: normal;
+    box-sizing: content-box;
+  }
+
+  &__bar {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    border-radius: 100px;
+
+    &.vertical {
+      top: 0;
+      width: $scrollbar-thumb-size;
+
+      & > div {
+        width: 100%;
+      }
+
+      .yoga-scrollbar__thumb {
+        width: 100%;
+        height: 0;
+      }
+    }
+
+    &.horizontal {
+      left: 0;
+      height: $scrollbar-thumb-size;
+
+      & > div {
+        height: 100%;
+      }
+
+      .yoga-scrollbar__thumb {
+        width: 0;
+        height: 100%;
+      }
+    }
+  }
+
+  &__thumb {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    background-color: $black-33;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity $duration-time-fast $ease-in-out;
+
+    &.visible {
+      opacity: .5;
+    }
+
+    &.hover {
+      opacity: .7;
+    }
+  }
+}

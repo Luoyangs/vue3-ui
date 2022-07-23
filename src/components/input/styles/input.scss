@@ -1,0 +1,222 @@
+$input-large-font-size: 16px;
+$input-normal-font-size: 14px;
+$input-small-font-size: 12px;
+$input-large-height: 38px;
+$input-normal-height: 30px;
+$input-small-height: 22px;
+$input-large-padding: 12px;
+$input-normal-padding: 12px;
+$input-small-padding: 8px;
+$height-maps: ("large": $input-large-height, "normal": $input-normal-height, "small": $input-small-height);
+$padding-maps: ("large": 0 $input-large-padding, "normal": 0 $input-normal-padding, "small": 0 $input-small-padding);
+$font-size-maps: ("large": $input-large-font-size, "normal": $input-normal-font-size, "small": $input-small-font-size);
+
+@mixin useSize {
+  @each $size, $value in $padding-maps {
+    &--#{$size} {
+      height: map.get($height-maps, $size) + 2px;
+      padding: $value;
+
+      .yoga-input__input {
+        height: map.get($height-maps, $size);
+        font-size: map.get($font-size-maps, $size);
+      }
+
+      .yoga-input__prefix,
+      .yoga-input__suffix,
+      .yoga-input__clear-btn {
+        svg {
+          width: 16px;
+          height: 16px;
+          vertical-align: middle;
+        }
+      }
+
+      .yoga-input__clear-btn {
+        svg {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.yoga-input {
+  display: inline-block;
+  width: 100%;
+  line-height: 0;
+
+  input,
+  textarea {
+    font-family: inherit;
+  }
+
+  &__input {
+    display: table-cell;
+    width: 100%;
+    padding: 0;
+    color: $text-color-primary;
+    vertical-align: middle;
+    background-color: inherit;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: $black-b7;
+    }
+  }
+
+  &__prefix,
+  &__suffix {
+    position: relative;
+    display: table-cell;
+    width: 1px;
+    height: 100%;
+    line-height: 0;
+    color: $black-99;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  &__clear-btn {
+    color: $black-b7;
+    visibility: hidden;
+
+    &:hover {
+      color: mix($black-b7, $black, 60%);
+    }
+  }
+
+  &__count {
+    font-size: 14px;
+    line-height: 16px;
+    color: $black-99;
+    vertical-align: middle;
+  }
+
+  &__prefix {
+    padding-right: 8px;
+  }
+
+  &__suffix {
+    padding-left: 8px;
+
+    .yoga-input__suffix-split {
+      margin-left: 0;
+    }
+  }
+
+  &__prefix-split,
+  &__suffix-split {
+    display: inline-block;
+    width: 1px;
+    height: calc(100% - 14px);
+    margin-left: 8px;
+    vertical-align: middle;
+    background: $black-ee;
+  }
+
+  &__suffix-split {
+    margin-right: 8px;
+  }
+
+  &__inner {
+    position: relative;
+    display: inline-table;
+    width: 100%;
+    height: 32px;
+    padding: 0 12px;
+    font-size: 14px;
+    background-color: $white;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-sizing: border-box;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    outline: none;
+    transition: border $duration-time-fast $ease-in-out;
+
+    &:hover,
+    &.focused {
+      border-color: $black-b7;
+    }
+
+    .yoga-input__input {
+      border-radius: $border-radius;
+    }
+
+    @include useSize;
+
+    &.error {
+      border-color: $orange;
+    }
+
+    &.disabled {
+      color: $black-b7;
+      cursor: not-allowed;
+      background-color: $black-f6;
+      border-color: $border-color;
+
+      &:hover {
+        border-color: $border-color;
+      }
+
+      .yoga-input__input {
+        color: $black-b7;
+        cursor: not-allowed;
+      }
+    }
+
+    &.active-clearable:hover {
+      .yoga-input__clear-btn {
+        visibility: visible;
+      }
+    }
+  }
+
+  &.textarea {
+    overflow: hidden;
+    font-size: 14px;
+    vertical-align: top;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+
+    .yoga-input__inner {
+      display: inline-block;
+      padding: 8px 12px;
+      height: auto;
+
+      &::placeholder {
+        color: $black-b7;
+      }
+    }
+
+    .yoga-input__count {
+      float: right;
+      margin-top: 4px;
+      line-height: 16px;
+      color: $black-99;
+    }
+  }
+
+  &__error-msg {
+    margin: 4px 0;
+    font-size: 12px;
+    line-height: 1em;
+    color: $orange;
+    word-break: normal;
+    word-wrap: break-word;
+    white-space: nowrap;
+  }
+
+  &__help-text {
+    margin-top: 4px;
+    margin-bottom: 0;
+    font-size: 12px;
+    line-height: 14px;
+    color: $black-99;
+    white-space: nowrap;
+  }
+}

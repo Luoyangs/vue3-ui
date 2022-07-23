@@ -1,0 +1,31 @@
+@import "./color.scss";
+
+// primary
+$primary-color: $orange !default;
+// secondary
+$secondary-color: $cyan !default;
+
+// placeholder
+$placeholder-color: $black-b7 !default;
+
+// ********** text ********** //
+$text-color-primary: $black-33 !default;
+$text-color-secondary: $black-99 !default;
+
+// ********** border ********** //
+$border-color: $black-e5 !default;
+$border-radius: 4px !default;
+
+// ********** divider ********** //
+$divider-color: $black-e5 !default;
+$divider-color-light: $black-ee !default;
+
+// ********** transition ********** //
+$duration-time-fast: 0.2s !default;
+$duration-time-slow: 0.36s !default;
+$ease-in-out: cubic-bezier(0.42, 0, 0.58, 1) !default;
+$default-all-fast-transition: all $duration-time-fast $ease-in-out !default;
+$default-all-slow-transition: all $duration-time-slow $ease-in-out !default;
+
+$zindex-modal-mask: 1000;
+$modal-mask-bg: rgba(0, 0, 0, .45);

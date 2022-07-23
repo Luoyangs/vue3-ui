@@ -1,0 +1,103 @@
+$tag-padding: (
+  'large': 4px 12px,
+  'normal': 2px 8px,
+  'small': 0 6px,
+);
+$tag-size: (
+  'large': 16px,
+  'normal': 14px,
+  'small': 12px,
+);
+$tag-colors: (
+  'success': #52c41a,
+  'warning': #faad14,
+  'error': #f5222d,
+  'info': #1890ff,
+);
+
+.yoga-tag {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 7px;
+  background: $black-fa;
+  border: 1px solid $black-d8;
+  border-radius: 3px;
+  opacity: 1;
+  transition: all 0.3s;
+  color: $black-66;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  > svg {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+  }
+
+  a {
+    color: $black-66;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: $black-33;
+  }
+
+  &--has-color {
+    &,
+    a,
+    a:hover,
+    .yoga-tag__close svg,
+    .yoga-tag__close:hover svg {
+      color: $white;
+      fill: $white;
+    }
+  }
+
+  &__close {
+    display: inline-flex;
+    justify-content: center;
+    svg {
+      width: 14px;
+      height: 14px;
+      margin-left: 3px;
+      fill: $black-66;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    &:hover svg {
+      fill: $black-33;
+    }
+  }
+}
+
+@each $size in (large, normal, small) {
+  .yoga-tag--#{$size} {
+    padding: map.get($tag-padding, $size);
+
+    > svg {
+      width: map.get($tag-size, $size);
+      height: map.get($tag-size, $size);
+    }
+  }
+}
+@each $type, $color in $tag-colors {
+  .yoga-tag--#{$type} {
+    color: $color;
+    background-color: rgba($color, .1);
+    border: 1px solid rgba($color, .3);
+
+    .yoga-tag__close svg,
+    .yoga-tag__close:hover svg {
+      color: $color;;
+      fill: $color;
+    }
+  }
+}

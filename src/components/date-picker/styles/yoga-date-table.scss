@@ -1,0 +1,229 @@
+$date-table-cell-width: 24px;
+$date-table-cell-space: 12px;
+$date-table-header-color: $black-66;
+
+.yoga-date-table {
+  padding: 16px;
+  font-size: 14px;
+  background-color: $white;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+    margin-bottom: 16px;
+    color: $date-table-header-color;
+
+    &__cell-inner {
+      position: relative;
+      display: inline-block;
+      width: $date-table-cell-width + $date-table-cell-space;
+      height: $date-table-cell-width;
+      line-height: $date-table-cell-width;
+      text-align: center;
+      word-break: keep-all;
+      vertical-align: middle;
+      border-radius: 4px;
+    }
+  }
+
+  &__table {
+    &__row {
+      display: flex;
+      justify-content: space-between;
+      white-space: nowrap;
+      color: $text-color-primary;
+
+      &:not(:last-child) {
+        margin-bottom: $date-table-cell-space;
+      }
+    }
+
+    &__cell {
+      position: relative;
+      width: $date-table-cell-width + $date-table-cell-space;
+      height: $date-table-cell-width;
+      line-height: $date-table-cell-width;
+      padding-right: math.div($date-table-cell-space, 2);
+      padding-left: math.div($date-table-cell-space, 2);
+      text-align: center;
+      word-break: keep-all;
+      vertical-align: middle;
+      border-radius: 4px;
+
+      &.in-range,
+      &.in-selecting-range {
+        &::before,
+        &::after {
+          position: absolute;
+          top: 1px;
+          z-index: 0;
+          height: 100%;
+          content: '';
+        }
+
+        &::before {
+          left: -4px;
+          width: $date-table-cell-width;
+          border-bottom-left-radius: 4px;
+          border-top-left-radius: 4px;
+        }
+
+        &::after {
+          right: -4px;
+          width: $date-table-cell-width;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+
+        &.month-start::before,
+        &.month-end::after,
+        &.line-start::before,
+        &.line-end::after {
+          display: none;
+        }
+
+        &.selected {
+          &::before,
+          &::after {
+            display: none;
+          }
+        }
+      }
+
+      &.in-selecting-range {
+        &::before,
+        &::after {
+          background-color: $black-f6;
+        }
+      }
+
+      &.in-range {
+        &::before,
+        &::after {
+          background-color: #fef1ee;
+        }
+
+        &.disabled-prev::after,
+        &.disabled-next::before {
+          display: none;
+        }
+
+        &.disabled {
+          &::before,
+          &::after {
+            background-color: #fff8f7;
+          }
+        }
+
+        &.in-selecting-range {
+          &::before,
+          &::after {
+            background-color: #fde4e0;
+          }
+
+          &.disabled {
+            &::before,
+            &::after {
+              background-color: #fff8f7;
+            }
+          }
+        }
+      }
+
+      &.week-selecting {
+        &::before,
+        &::after {
+          background-color: $black-f6;
+        }
+      }
+
+      &.week-selection,
+      &.week-selecting {
+        &:not(.disabled) {
+          &::before,
+          &::after {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    &__cell-inner {
+      position: relative;
+      display: inline-block;
+      width: $date-table-cell-width;
+      height: $date-table-cell-width;
+      line-height: $date-table-cell-width;
+      text-align: center;
+      word-break: keep-all;
+      vertical-align: middle;
+      border-radius: 4px;
+      z-index: 1;
+
+      &.disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      &:not(.disabled):hover {
+        cursor: pointer;
+      }
+
+      &:not(.disabled):not(.selected):not(.in-range):hover,
+      &.in-selecting-range,
+      &.selecting-range-start,
+      &.selecting-range-end {
+        background-color: $black-f6;
+      }
+
+      &.current {
+        font-weight: 500;
+        color: $primary-color;
+      }
+
+      &.out-of-month:not(.disabled) {
+        color: $black-99;
+      }
+
+      &.range-start:hover,
+      &.range-end:hover {
+        color: $white;
+        background-color: $primary-color;
+      }
+
+      &.selected,
+      &.selected:hover {
+        &:not(.selecting-range-end) {
+          color: $white;
+          background-color: $primary-color;
+        }
+      }
+
+      &.in-range {
+        background-color: #fef1ee;
+
+        &:hover,
+        &.in-selecting-range,
+        &.selecting-range-start,
+        &.selecting-range-end {
+          background-color: #fde4e0;
+        }
+      }
+
+      &.week-selecting {
+        background-color: $black-f6;
+
+        &:hover {
+          background-color: $black-f6;
+        }
+      }
+
+      &.week-selection {
+        &.in-range:hover {
+          background-color: inherit;
+        }
+      }
+    }
+  }
+}

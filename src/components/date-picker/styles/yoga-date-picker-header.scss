@@ -1,0 +1,70 @@
+.yoga-date-picker-header {
+  position: relative;
+  padding: 16px;
+  overflow: hidden;
+  line-height: 16px;
+  text-align: center;
+  box-shadow: inset 0 -1px 0 0 $black-33;
+
+  &__icon {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    color: $black-99;
+    cursor: pointer;
+    transition: $default-all-fast-transition;
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: .5;
+    }
+
+    &:not(.disabled):hover {
+      color: $black-33;
+    }
+  }
+
+  &__prev {
+    &:nth-child(1) {
+      left: 16px;
+    }
+
+    &:nth-child(2) {
+      left: 36px;
+    }
+  }
+
+  &__next {
+    &:nth-last-child(1) {
+      right: 16px;
+    }
+
+    &:nth-last-child(2) {
+      right: 36px;
+    }
+  }
+
+  &__label {
+    font-size: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    color: $text-color-primary;
+    transition: $default-all-fast-transition;
+
+    &.clickable {
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    &.disabled {
+      opacity: .5;
+    }
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+}

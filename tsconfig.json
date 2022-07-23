@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@directives/*": ["src/directives/*"],
+      "@directives": ["src/directives"],
+      "@locale/*": ["src/locale/*"],
+      "@locale": ["src/locale"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@theme/*": ["src/theme/*"],
+      "vue3-ui": ["src/index.ts"]
+    }
+  },
+  "include": [
+    "docs/**/*.ts",
+    "docs/**/*.tsx",
+    "docs/**/*.vue",
+    "src/**/*"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

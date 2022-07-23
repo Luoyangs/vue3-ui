@@ -1,0 +1,10 @@
+
+.yoga-daterange-picker-panel {
+  display: inline-block;
+
+  &__main,
+  &__main-left,
+  &__main-right {
+    display: flex;
+  }
+}
