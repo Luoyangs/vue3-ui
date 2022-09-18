@@ -138,7 +138,7 @@ $font-size-maps: ("large": $input-large-font-size, "normal": $input-normal-font-
     transition: border $duration-time-fast $ease-in-out;
 
     &:hover,
-    &.focused {
+    &--focused {
       border-color: $black-b7;
     }
 
@@ -148,11 +148,11 @@ $font-size-maps: ("large": $input-large-font-size, "normal": $input-normal-font-
 
     @include useSize;
 
-    &.error {
+    &--error {
       border-color: $orange;
     }
 
-    &.disabled {
+    &--disabled {
       color: $black-b7;
       cursor: not-allowed;
       background-color: $black-f6;
@@ -168,7 +168,7 @@ $font-size-maps: ("large": $input-large-font-size, "normal": $input-normal-font-
       }
     }
 
-    &.active-clearable:hover {
+    &--active-clearable:hover {
       .yoga-input__clear-btn {
         visibility: visible;
       }

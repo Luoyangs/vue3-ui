@@ -92,7 +92,7 @@ export interface InputComputedState {
   nativeProps: ComputedRef<Record<string, string>>;
   formItem: FormItemContext;
   isNumber: ComputedRef<boolean>;
-  innerClass: ComputedRef<string[]>;
+  innerClass: ComputedRef<Record<string, boolean>>;
   textLength: ComputedRef<number>;
   textareaStyle: ComputedRef<Record<string, string>>;
   isWordLimitVisible: ComputedRef<boolean>;

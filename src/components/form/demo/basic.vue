@@ -10,22 +10,22 @@ title: 基础类型
   <y-form ref="formRef" :model="formModel" :rules="formRules">
     <y-form-item prop="radioValue" label="Radio Value">
       <y-radio
-        name="radio-demo"
         v-model="formModel.radioValue"
+        name="radio-demo"
         @change="handleValueChange"
       >
         RadioA
       </y-radio>
     </y-form-item>
     <y-form-item prop="input" label="Input Value">
-      <y-input name="radio-demo" v-model="formModel.input" />
+      <y-input v-model="formModel.input" name="radio-demo" />
     </y-form-item>
     <y-button @click="handleCancel"> 取消 </y-button>
     <y-button type="primary" @click="handlePost"> 提交 </y-button>
   </y-form>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, defineComponent, reactive } from "vue";
 import { required } from "vuelidate/lib/validators";
 

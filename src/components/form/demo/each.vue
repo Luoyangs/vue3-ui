@@ -26,7 +26,7 @@ title: 动态表单
   </y-form>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, defineComponent, reactive } from "vue";
 import { required, minLength } from "vuelidate/lib/validators";
 

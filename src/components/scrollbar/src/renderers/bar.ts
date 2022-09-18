@@ -3,6 +3,7 @@ import useThumb from '@components/scrollbar/src/composition/useThumb';
 import { SCROLLBAR_KEY } from '@components/scrollbar/types';
 import { barProps } from '@components/scrollbar/src/renderers/types';
 import { debounce } from '@utils/helper';
+import { useNamespace } from '@hooks/useNamespace';
 import type { Ref, SetupContext } from 'vue';
 import type { BarProps, BarState } from '@components/scrollbar/src/renderers/types';
 
@@ -10,6 +11,7 @@ export default defineComponent({
   name: 'Bar',
   props: barProps,
   setup(props: BarProps, { expose }: SetupContext) {
+    const ns = useNamespace('scrollbar');
     const scrollbar = inject(SCROLLBAR_KEY) as Ref<HTMLElement>;
     if (!scrollbar) {
       throw new Error('can not inject scrollbar context');
@@ -37,14 +39,14 @@ export default defineComponent({
     const rootProps = computed(() => {
       return {
         ref: root,
-        class: ['yoga-scrollbar__bar', props.vertical ? 'vertical' : 'horizontal'],
+        class: [ns.e('bar'), ns.em('bar', props.vertical ? 'vertical' : 'horizontal')],
         onMouseover: show,
         onMouseleave: hide
       };
     });
     const thumbProps = computed(() => {
       return {
-        class: ['yoga-scrollbar__thumb', state.visible && 'visible'],
+        class: [ns.e('thumb'), state.visible && ns.em('thumb', 'visible')],
         style: unref(thumbStyle),
         onMousedown: onThumbMousedown
       };

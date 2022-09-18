@@ -1,9 +1,10 @@
 import { defineComponent, nextTick, reactive, getCurrentInstance, onMounted, watch } from 'vue';
+import { useNamespace } from '@hooks/useNamespace';
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@components/base';
 import ClearIcon from '@components/base/icons/src/Clear';
 import { useComputedState } from '@components/input/src/use-input';
 import { sliceStr, calcTextareaHeight, valueToFixed } from '@components/input/src/util';
-import { inputProps, InputRef, RESTRICTION_TYPE, TEXTAREA_MIN_ROW } from '@components/input/types';
+import { inputProps, RESTRICTION_TYPE, TEXTAREA_MIN_ROW } from '@components/input/types';
 import { isFunction, isRegExp, isNumber as isNumberFn, isBool } from '@utils/helper';
 import type { SetupContext, ComponentInternalInstance } from 'vue';
 import type { AutoSize, InputProps, InputState } from '@components/input/types';
@@ -13,6 +14,7 @@ export default defineComponent({
   props: inputProps,
   emits: [UPDATE_MODEL_EVENT, CHANGE_EVENT, 'clear', 'click'],
   setup(props: InputProps, { slots, emit, expose }: SetupContext) {
+    const ns = useNamespace('input');
     const { proxy } = getCurrentInstance() as ComponentInternalInstance;
     const state = reactive<InputState>({
       focused: false,
@@ -200,14 +202,14 @@ export default defineComponent({
     });
     /** ---------------- public end ---------------- */
 
-    const renderInputSplit = (type: string) => <span class={`yoga-input__${type}-split`}></span>;
+    const renderInputSplit = (type: string) => <span class={ns.e(`${type}-split`)}></span>;
 
     const renderInputPrefix = (): JSX.Element | null => {
       const prefixSlot = slots.prefix;
       const prefixLabel = props.prefixLabel;
       const prefixIcon = props.prefixIcon;
       const hasPrefix = prefixSlot || prefixLabel || prefixIcon;
-      const prefixClass = 'yoga-input__prefix';
+      const prefixClass = ns.e('prefix');
 
       if (hasPrefix) {
         if (prefixSlot) {
@@ -236,7 +238,7 @@ export default defineComponent({
       const suffixLabel = props.suffixLabel;
       const suffixIcon = props.suffixIcon;
       const hasSuffix = suffixSlot || suffixLabel || suffixIcon || props.clearable || isWordLimitVisible.value;
-      const suffixClass = 'yoga-input__suffix';
+      const suffixClass = ns.e('suffix');
       const suffixChildren: JSX.Element[] = [];
 
       if (!hasSuffix) {
@@ -245,7 +247,7 @@ export default defineComponent({
 
       if (!props.disabled && props.clearable) {
         suffixChildren.push(
-          <span class="yoga-input__clear-btn" onClick={clear}>
+          <span class={ns.e('clear-btn')} onClick={clear}>
             <ClearIcon />
           </span>
         );
@@ -259,7 +261,7 @@ export default defineComponent({
         );
       } else if (isWordLimitVisible.value) {
         suffixChildren.push(
-          <span class="yoga-input__count">
+          <span class={ns.e('count')}>
             {textLength.value}/{props.maxlength}
           </span>
         );
@@ -277,7 +279,7 @@ export default defineComponent({
       const error = props.error;
       const errorMessage = props.errorMessage;
       const errorSlot = slots.error;
-      const errorClass = 'yoga-input__error-msg';
+      const errorClass = ns.e('error-msg');
 
       if (errorSlot) {
         return <div class={errorClass}>{errorSlot()}</div>;
@@ -289,7 +291,7 @@ export default defineComponent({
     const renderInputHelp = (): JSX.Element | undefined => {
       const helpText = props.helpText;
       const helpSlot = slots.help;
-      const helpClass = 'yoga-input__help-text';
+      const helpClass = ns.e('help-text');
 
       if (helpSlot) {
         return <div class={helpClass}>{helpSlot()}</div>;
@@ -300,12 +302,12 @@ export default defineComponent({
 
     const renderInput = (): JSX.Element => {
       return (
-        <div class="yoga-input" onClick={handleClick}>
+        <div class={ns.b()} onClick={handleClick}>
           <div class={innerClass.value}>
             {renderInputPrefix()}
             <input
               ref="inputRef"
-              class="yoga-input__input"
+              class={ns.e('input')}
               {...nativeProps.value}
               type={props.type}
               value={state.currentValue}
@@ -328,7 +330,7 @@ export default defineComponent({
       const suffix: JSX.Element[] = [];
       if (isWordLimitVisible.value) {
         suffix.push(
-          <span class="yoga-input__count">
+          <span class={ns.e('count')}>
             {textLength.value}/{props.maxlength}
           </span>
         );
@@ -342,7 +344,7 @@ export default defineComponent({
 
     const renderTextareaInput = (): JSX.Element => {
       return (
-        <div class="yoga-input textarea" onClick={handleClick}>
+        <div class={[ns.b(), props.type]} onClick={handleClick}>
           <textarea
             ref="inputRef"
             {...nativeProps.value}

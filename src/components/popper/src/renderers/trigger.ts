@@ -11,7 +11,7 @@ interface RenderTriggerProps extends Record<string, unknown> {
   onFocus?: (e: Event) => void;
 }
 
-export default function getTrigger(trigger: VNode[], prop: RenderTriggerProps): JSX.Element {
+export default function getTrigger(trigger: VNode[], prop: RenderTriggerProps): VNode {
   const firstElement = getFirstValidNode(trigger, 1);
   if (!firstElement) {
     throw Error('trigger expects single rooted node');

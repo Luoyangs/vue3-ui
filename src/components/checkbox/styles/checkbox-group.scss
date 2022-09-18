@@ -32,7 +32,6 @@ $border-radius-maps: ("large": 4px, "normal": 3px, "small": 2px);
       line-height: 1;
       vertical-align: middle;
       border: 1px solid $border-color;
-      border-left: 0;
       text-align: center;
       box-sizing: border-box;
       outline: none;
@@ -43,7 +42,7 @@ $border-radius-maps: ("large": 4px, "normal": 3px, "small": 2px);
         display: none;
       }
 
-      &:first-child {
+      &:first-child:not(.yoga-checkbox--checked) {
         border-left: 1px solid $border-color;
       }
 
@@ -94,6 +93,10 @@ $border-radius-maps: ("large": 4px, "normal": 3px, "small": 2px);
           }
         }
       }
+    }
+
+    &:not(.yoga-checkbox-group--vertical) .yoga-checkbox:not(:first-child) {
+      border-left: 0;
     }
 
     @include useSize;

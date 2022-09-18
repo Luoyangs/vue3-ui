@@ -20,7 +20,7 @@ function createBEM(namespace: string, element?: string, modifier?: string): stri
 }
 
 export const useNamespace = (block: string): UseNamespace => {
-  const namespace = `.yoga-${block}`;
+  const namespace = `yoga-${block}`;
   const b = () => createBEM(namespace);
   const e = (element?: string) => createBEM(namespace, element);
   const m = (modifier?: string) => createBEM(namespace, '', modifier);

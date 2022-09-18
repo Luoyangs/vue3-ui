@@ -3,21 +3,24 @@ import { FormItemKey } from '@components/form/types';
 import { RESTRICTION_TYPE } from '@components/input/types';
 import { isPlainObject } from '@utils/helper';
 import { lengthOf } from '@components/input/src/util';
+import { useNamespace } from '@hooks/useNamespace';
 import type { FormItemContext } from '@components/form/types';
 import type { InputProps, InputState, InputComputedState } from '@components/input/types';
 
 export const useComputedState = (props: InputProps, state: InputState): InputComputedState => {
+  const ns = useNamespace('input');
   const formItem = inject(FormItemKey, {} as FormItemContext);
   const size = computed(() => formItem?.size || props.size);
   const innerClass = computed(() => {
-    return [
-      'yoga-input__inner',
-      state.focused ? 'focused' : '',
-      props.disabled ? 'disabled' : '',
-      props.error ? 'error' : '',
-      size.value ? `yoga-input__inner--${size.value}` : '',
-      props.clearable && state.currentValue && String(state.currentValue).length > 0 ? 'active-clearable' : ''
-    ];
+    return {
+      [ns.e('inner')]: true,
+      [ns.em('inner', 'focused')]: state.focused,
+      [ns.em('inner', 'disabled')]: props.disabled,
+      [ns.em('inner', 'error')]: props.error,
+      [ns.em('inner', size.value)]: !!size.value,
+      [ns.em('inner', 'active-clearable')]:
+        props.clearable && !!state.currentValue && String(state.currentValue).length > 0
+    };
   });
   const textareaStyle = computed(() => ({ ...state.textareaCalcStyle, resize: props.resize })); // 这里后面尝试放在初始化里完成
   const isWordLimitVisible = computed(() => {

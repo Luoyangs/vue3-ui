@@ -53,7 +53,7 @@ $radio-indicator-margin: 8px;
     }
   }
 
-  &.disabled {
+  &--disabled {
     color: $radio-disabled-text-color;
     cursor: not-allowed !important;
 

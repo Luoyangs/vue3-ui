@@ -1,22 +1,22 @@
 import { defineComponent, computed, CSSProperties } from 'vue';
 import { CloseIcon } from '@components/base/icons';
 import { tagProps, tagEmits } from '@components/tag/types';
-
-const prefixCls = 'yoga-tag';
+import { useNamespace } from '@hooks/useNamespace';
 
 export default defineComponent({
   name: 'YTag',
   props: tagProps,
   emits: tagEmits,
   setup(props, { emit, slots }) {
+    const ns = useNamespace('tag');
     const className = computed(() => {
       const { size, type, closable, color, outline } = props;
       return {
-        [prefixCls]: true,
-        [`${prefixCls}--closable`]: closable,
-        [`${prefixCls}--${type}`]: !!type,
-        [`${prefixCls}--has-color`]: !!color && !outline,
-        [`${prefixCls}--${size}`]: size
+        [ns.b()]: true,
+        [ns.m('closable')]: closable,
+        [ns.m(type)]: !!type,
+        [ns.m('has-color')]: !!color && !outline,
+        [ns.m(size)]: size
       };
     });
 
@@ -47,7 +47,7 @@ export default defineComponent({
         onClick={handleClick}>
         {slots.default?.()}
         {props.closable && (
-          <span class={`${prefixCls}__close`} onClick={handleClose}>
+          <span class={ns.e('close')} onClick={handleClose}>
             <CloseIcon style={props.outline ? { fill: props.outline && props.color } : null} />
           </span>
         )}

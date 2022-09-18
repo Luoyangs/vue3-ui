@@ -12,6 +12,7 @@ import {
   renderSlot
 } from 'vue';
 import mitt from 'mitt';
+import { useNamespace } from '@hooks/useNamespace';
 import { formItemProps, FormKey, FormItemKey } from '@components/form/types';
 import { getModelByPath, getRulesByPath } from '@components/form/src/util';
 import { debounce, isArray, isFunction, isPlainObject, NOOP, toTypeString } from '@utils/helper';
@@ -31,6 +32,7 @@ export default defineComponent({
   name: 'YFormItem',
   props: formItemProps,
   setup(props: FormItemProps, { slots }: SetupContext) {
+    const ns = useNamespace('form-item');
     const error = ref<boolean>(false);
     const errorMessage = ref<string>('');
     const validateTrigger = ref<string>('');
@@ -39,11 +41,11 @@ export default defineComponent({
 
     /************** computed attr *************/
     const formItemClass = computed(() => {
-      return [
-        'yoga-form-item',
-        sizeClass.value ? `yoga-form-item--${sizeClass.value}` : '',
-        error.value ? 'yoga-form-item--error' : ''
-      ];
+      return {
+        [ns.b()]: true,
+        [ns.m('error')]: error.value,
+        [ns.m(sizeClass.value)]: sizeClass.value,
+      };
     });
     const formItemLabelClass = computed(() => {
       return ['yoga-form-item__label', (props.label || slots.label?.()) ?? 'empty'];
@@ -226,6 +228,7 @@ export default defineComponent({
     });
 
     return {
+      ns,
       formItemClass,
       labelFor,
       formItemLabelClass,
@@ -241,23 +244,24 @@ export default defineComponent({
     };
   },
   render() {
+    const ns = useNamespace('form-item');
     const { error, errorMessage, showError, required, label, labelFor, formItemClass, formItemLabelClass } = this;
     return (
       <div class={formItemClass}>
         <label for={labelFor} class={formItemLabelClass}>
-          {required && <span class="yoga-form-item__required">*</span>}
+          {required && <span class={ns.e('required')}>*</span>}
           {renderSlot(this.$slots, 'label', undefined, () => [label])}
         </label>
-        <div class="yoga-form-item__control">
-          <div class="yoga-form-item__content">{this.$slots.default?.()}</div>
+        <div class={ns.e('control')}>
+          <div class={ns.e('content')}>{this.$slots.default?.()}</div>
           {renderSlot(this.$slots, 'error', { error, errorMessage }, () => [
             showError && (
               <transition name="slide-fast">
-                <div class="yoga-form-item__error">{errorMessage}</div>
+                <div class={ns.e('error')}>{errorMessage}</div>
               </transition>
             )
           ])}
-          {this.$slots.extra && <div class="yoga-form-item__extra">{this.$slots.extra()}</div>}
+          {this.$slots.extra && <div class={ns.e('extra')}>{this.$slots.extra()}</div>}
         </div>
       </div>
     );

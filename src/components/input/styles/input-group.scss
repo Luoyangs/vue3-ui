@@ -1,4 +1,4 @@
-.yoga-input__group {
+.yoga-input-group {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -32,7 +32,7 @@
   }
 
   .yoga-input:hover .yoga-input__inner,
-  .yoga-input__inner.focused {
+  .yoga-input__inner.yoga-input__inner--focused {
     z-index: 1;
     border-right-width: 1px;
 

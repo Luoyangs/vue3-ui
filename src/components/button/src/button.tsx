@@ -24,7 +24,6 @@ export default defineComponent({
       const { type, size, href, target, outline, dashed, fullWidth, round, circle, disabled, nativeType, loading } = props;
 
       const buttonClass = {
-        [ns.b()]: true,
         [ns.m(type)]: type,
         [ns.m(size)]: size,
         [ns.m('outline')]: outline,
@@ -34,7 +33,8 @@ export default defineComponent({
         [ns.m('circle')]: circle,
         [ns.m('pure')]: !slots.default,
         [ns.m('disabled')]: disabled || loading,
-        [ns.m('underline')]: href && type === 'link'
+        [ns.m('underline')]: href && type === 'link',
+        [ns.b()]: true, // 要放在最后，否则会被覆盖
       };
 
       return href

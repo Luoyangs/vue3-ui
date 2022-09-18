@@ -5,6 +5,7 @@ import useBarSize from '@components/scrollbar/src/composition/useBarSize';
 import useScrollInfo from '@components/scrollbar/src/composition/useScrollInfo';
 import { scrollbarProps, SCROLLBAR_KEY, SCROLLBAR_WIDTH } from '@components/scrollbar/types';
 import { scrollAnimation } from '@utils/dom';
+import { useNamespace } from '@hooks/useNamespace';
 import useResizeObserver from '@hooks/useResizeObserver';
 import type { SetupContext, Ref, CSSProperties } from 'vue';
 import type { ScrollbarProps, EmitType } from '@components/scrollbar/types';
@@ -14,6 +15,7 @@ export default defineComponent({
   props: scrollbarProps,
   emits: ['scroll'],
   setup(props: ScrollbarProps, { slots, emit, expose }: SetupContext<EmitType[]>) {
+    const ns = useNamespace('scrollbar');
     const wrapper: Ref<HTMLElement | null> = ref(null);
     const content: Ref<HTMLElement | null> = ref(null);
     const verticalBar: Ref<typeof Bar | null> = ref(null);
@@ -132,7 +134,7 @@ export default defineComponent({
         {
           ref: content,
           style: fixedStyle.value.content,
-          class: 'yoga-scrollbar__content'
+          class: ns.e('content')
         },
         slots.default?.()
       );
@@ -141,12 +143,12 @@ export default defineComponent({
         {
           ref: wrapper,
           style: fixedStyle.value.wrapper,
-          class: 'yoga-scrollbar__wrapper',
+          class: ns.e('wrapper'),
           onScroll
         },
         [verticalBarEl, horizontalBarEl, innerContentEl].filter(Boolean)
       );
-      return h('div', { class: 'yoga-scrollbar' }, wrapperEl);
+      return h('div', { class: ns.b() }, wrapperEl);
     };
   }
 });

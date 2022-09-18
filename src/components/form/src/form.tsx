@@ -2,6 +2,7 @@ import { computed, defineComponent, ref, toRefs, provide, reactive } from 'vue';
 import { formProps, FormKey } from '@components/form/types';
 import { getFieldsByPaths, noop } from '@components/form/src/util';
 import mitt from 'mitt';
+import { useNamespace } from '@hooks/useNamespace';
 import { isFunction, isPlainObject } from '@utils/helper';
 import type { SetupContext } from 'vue';
 import type {
@@ -18,15 +19,16 @@ export default defineComponent({
   props: formProps,
   emits: ['validate'],
   setup(props: FormProps, { emit, slots, expose }: SetupContext) {
+    const ns = useNamespace('form');
     const formMitt = mitt<FormEvent>();
     const fields = ref<FormItemContext[]>([]);
 
     const formClass = computed(() => {
-      return [
-        'yoga-form',
-        props.inline ? 'yoga-form--inline' : '',
-        props.labelAlign ? 'yoga-form--label-' + props.labelAlign : ''
-      ];
+      return {
+        [ns.b()]: true,
+        [ns.m('inline')]: props.inline,
+        [ns.m('label-') + props.labelAlign]: props.labelAlign,
+      };
     });
 
     /************************** methods start ***************************/

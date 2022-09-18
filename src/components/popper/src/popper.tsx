@@ -14,7 +14,7 @@ import { popperProps } from '@components/popper/types';
 import { ClickOutside } from '@directives';
 import usePopper from '@components/popper/src/hook/use-popper';
 import getTrigger from '@components/popper/src/renderers/trigger';
-import type { SetupContext } from 'vue';
+import type { SetupContext, VNode } from 'vue';
 import type { EmitType, PopperProps } from '@components/popper/types';
 
 export default defineComponent({
@@ -114,7 +114,7 @@ export default defineComponent({
       const triggerNode = getTrigger(triggerSlot!, triggerProps)
       const trigger = isManualMode
         ? triggerNode
-        : withDirectives(triggerNode, [[ClickOutside, hide]]);
+        : withDirectives(triggerNode as VNode, [[ClickOutside, hide]]);
 
       return (
         <Fragment>

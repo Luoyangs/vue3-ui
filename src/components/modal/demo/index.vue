@@ -25,9 +25,8 @@ import Doc from '../README.md';
 </script>
 
 <style lang="scss">
-.modal-pages {
-  .yoga-button + .yoga-button {
-    margin-left: 8px;
-  }
+.modal-pages .yoga-button {
+  margin-right: 8px;
+  margin-bottom: 8px;
 }
 </style>

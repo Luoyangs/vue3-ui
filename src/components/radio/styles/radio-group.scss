@@ -55,11 +55,11 @@ $border-radius-maps: ("large": 4px, "normal": 3px, "small": 2px);
         display: none;
       }
 
-      &:first-child {
+      &:first-child:not(.yoga-radio--checked) {
         border-left: 1px solid $border-color;
       }
 
-      &.disabled {
+      &--disabled {
         @if $type == "solid" {
           background-color: $black-ee;
           border-color: $border-color;
@@ -74,7 +74,7 @@ $border-radius-maps: ("large": 4px, "normal": 3px, "small": 2px);
         }
       }
 
-      &.checked {
+      &--checked {
         border-color: $primary-color;
         @if $type == "solid" {
           background-color: $primary-color;
@@ -88,7 +88,7 @@ $border-radius-maps: ("large": 4px, "normal": 3px, "small": 2px);
           }
         }
 
-        &.disabled {
+        &.yoga-radio--disabled {
           opacity: .5;
         }
 
@@ -115,7 +115,7 @@ $border-radius-maps: ("large": 4px, "normal": 3px, "small": 2px);
         border-top: none;
       }
 
-      &.checked {
+      &.yoga-radio--checked {
         &:not(:first-child) {
           &::before {
             position: absolute;

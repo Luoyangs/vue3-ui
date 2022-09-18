@@ -58,7 +58,7 @@ $checkbox-indicator-square: 16px;
     vertical-align: middle;
   }
 
-  &.checked {
+  &--checked {
     .yoga-checkbox__indicator {
       border-color: $primary-color;
       background-color: $primary-color;
@@ -70,7 +70,7 @@ $checkbox-indicator-square: 16px;
     }
   }
 
-  &.indeterminate:not(.checked) {
+  &--indeterminate:not(.yoga-checkbox--checked) {
     .yoga-checkbox__indicator {
       border-color: $primary-color;
       background-color: $primary-color;
@@ -81,7 +81,7 @@ $checkbox-indicator-square: 16px;
     }
   }
 
-  &.disabled {
+  &--disabled {
     cursor: not-allowed;
     opacity: .5;
   }

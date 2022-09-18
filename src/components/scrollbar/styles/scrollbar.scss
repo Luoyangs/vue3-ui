@@ -35,7 +35,7 @@ $scrollbar-thumb-size: 6px;
     z-index: 1;
     border-radius: 100px;
 
-    &.vertical {
+    &--vertical {
       top: 0;
       width: $scrollbar-thumb-size;
 
@@ -49,7 +49,7 @@ $scrollbar-thumb-size: 6px;
       }
     }
 
-    &.horizontal {
+    &--horizontal {
       left: 0;
       height: $scrollbar-thumb-size;
 
@@ -73,11 +73,11 @@ $scrollbar-thumb-size: 6px;
     opacity: 0;
     transition: opacity $duration-time-fast $ease-in-out;
 
-    &.visible {
+    &--visible {
       opacity: .5;
     }
 
-    &.hover {
+    &--hover {
       opacity: .7;
     }
   }
