@@ -1,7 +1,8 @@
-import { defineComponent, computed, CSSProperties } from 'vue';
+import { defineComponent, computed } from 'vue';
 import { CloseIcon } from '@components/base/icons';
 import { tagProps, tagEmits } from '@components/tag/types';
 import { useNamespace } from '@hooks/useNamespace';
+import type { CSSProperties } from 'vue';
 
 export default defineComponent({
   name: 'YTag',
@@ -12,11 +13,11 @@ export default defineComponent({
     const className = computed(() => {
       const { size, type, closable, color, outline } = props;
       return {
-        [ns.b()]: true,
         [ns.m('closable')]: closable,
         [ns.m(type)]: !!type,
         [ns.m('has-color')]: !!color && !outline,
-        [ns.m(size)]: size
+        [ns.m(size)]: size,
+        [ns.b()]: true
       };
     });
 
@@ -24,7 +25,7 @@ export default defineComponent({
       const { color, outline } = props;
 
       return outline ? {
-        color: color,
+        color,
         border: `1px solid ${color}`
       } as CSSProperties : {
         backgroundColor: color
@@ -41,10 +42,7 @@ export default defineComponent({
     };
 
     return () => (
-      <div
-        class={className.value}
-        style={style.value}
-        onClick={handleClick}>
+      <div class={className.value} style={style.value} onClick={handleClick}>
         {slots.default?.()}
         {props.closable && (
           <span class={ns.e('close')} onClick={handleClose}>
